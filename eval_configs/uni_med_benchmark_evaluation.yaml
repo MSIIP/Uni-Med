@@ -1,0 +1,95 @@
+model:
+  arch: uni_med
+  model_type: pretrain
+  
+  image_size: 224
+  max_txt_len: 1024
+  end_sym: "</s>"
+  use_grad_checkpoint: True
+  chat_template: True
+
+  resample_rate: 4  # 1/4
+  resample_method: "projection"   # projection, avgpool, maxpool
+  has_moe: True
+  projector_type: "moe_mlp" # linear, mlp2x_gelu, mlp3x_gelu, moe_linear, moe_mlp
+  num_experts: 5
+  router_method: 'router_task_token'   # router_task_token, router_token, router_task
+  num_task_tokens: 1
+  task_token_c: 5632
+  router_type: "soft"  # soft, hard, constant, sparse
+
+  sft_type: "lora" # lora, full, none
+  lora_target_modules: ['all'] #'q_proj', 'k_proj'
+  lora_r: 8
+  lora_alpha: 16
+
+  llm_model_name: "llama2"
+  llm_model_path: "" # path/Llama-2-7b-chat-hf
+
+  ckpt: "" #/path/checkpoint.pth
+
+run:
+  task: image_text_pretrain
+  save_path:   #path/uni_med/output/eval/
+
+datasets:
+  slakevqa_en:
+    vis_processor:
+      train:
+        name: "blip2_image_eval"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+
+evaluation_datasets:
+  slakevqa_en:  
+    eval_file_path: # path/dataset/Slake-VQA
+    img_path: # path/dataset/Slake-VQA/imgs
+    max_new_tokens: 100       
+    batch_size: 40
+
+  path_vqa:
+    eval_file_path: # path/dataset/Path-VQA/qas
+    img_path: # path/dataset/Path-VQA/images
+    max_new_tokens: 100
+    batch_size: 40
+  
+  ref_slake:
+    data_dir: # path/dataset/Slake-VQA
+    max_new_tokens: 100
+    batch_size: 40
+  
+  invref_slake:
+    data_dir: # path/dataset/Slake-VQA
+    max_new_tokens: 100
+    batch_size: 40
+  
+  ref_sa_med:
+    image_dir: # path/dataset/SA-Med2D-20M/images_small_test
+    region_dir: # path/dataset/SA-Med2D-20M/regions_small_test
+    max_new_tokens: 100
+    batch_size: 40
+  
+  invref_sa_med:
+    image_dir: # path/dataset/SA-Med2D-20M/images_small_test
+    region_dir: # path/dataset/SA-Med2D-20M/regions_small_test
+    max_new_tokens: 100
+    batch_size: 40
+
+  mimic_caption:
+    eval_file_path: # path/dataset/MIMIC_caption
+    img_path: #path/dataset/MIMIC-CXR-JPG/2.0.0
+    max_new_tokens: 100
+    batch_size: 40
+  
+  medpix_single:
+    eval_file_path: # path/dataset/MedPix/data_csv
+    img_path: # path/dataset/MedPix/MedPix/images
+    max_new_tokens: 100
+    batch_size: 40
+
+  medmnist_2d:
+    data_dir: # path/dataset/MedMNIST
+    max_new_tokens: 100
+    batch_size: 40

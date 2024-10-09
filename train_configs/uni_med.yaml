@@ -1,0 +1,178 @@
+model:
+  arch: uni_med
+  model_type: pretrain
+
+  # image encoder
+  image_size: 224
+  drop_path_rate: 0
+  use_grad_checkpoint: True
+  vit_precision: "fp16"
+  freeze_vit: True
+
+  # projector
+  resample_rate: 4   # 1/4
+  resample_method: "projection"   # projection, avgpool, maxpool
+  has_moe: True
+  projector_type: "moe_mlp"  # linear, mlp2x_gelu, mlp3x_gelu, moe_linear, moe_mlp
+  num_experts: 5
+  router_method: 'router_task_token'   # router_task_token, router_token, router_task
+  num_task_tokens: 1    # 0/1
+  task_token_c: 5632
+  router_type: "soft"  # soft, hard, constant, sparse
+  
+  # llm decoder
+  llm_model_name: "llama2"
+  llm_model_path: ""   # path/Llama-2-7b-chat-hf
+  sft_type: "lora" # lora, full, none
+  lora_target_modules: ['all'] # all / ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'down_proj','up_proj', 'gate_proj']
+  lora_r: 8 
+  lora_alpha: 16
+  chat_template: True
+  max_txt_len: 1024
+  end_sym: "</s>"
+
+
+datasets:
+  medqa_en:
+    batch_size: 4
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 2
+  
+  pubmedqa:
+    batch_size: 4
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 2
+  
+  slakevqa_en:
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 5
+  
+  path_vqa:         
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 5
+  
+  ref_slake:
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 4
+
+  invref_slake:
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 4
+  
+  ref_sa_med:
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 4
+
+  invref_sa_med:
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 4
+  
+  medpix_single:
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 8
+  
+  mimic_caption:
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 8
+  
+  medmnist_2d_small:
+    batch_size: 4
+    vis_processor:
+      train:
+        name: "blip2_image_train"
+        image_size: 224
+    text_processor:
+      train:
+        name: "blip_caption_new"
+    sample_ratio: 4
+
+run:
+  task: image_text_pretrain
+  # optimizer
+  lr_sched: "linear_warmup_cosine_lr"
+  init_lr: 1e-5
+  min_lr: 1e-7
+  warmup_lr: 1e-6
+
+  weight_decay: 0.05
+  max_epoch: 1
+  num_workers: 6
+  warmup_steps: 5000
+  iters_per_epoch: 50000
+
+  seed: 42  # 42
+  output_dir: "" # path/uni_med/output/med
+
+  amp: True
+  resume_ckpt_path: null
+
+  evaluate: False 
+  train_splits: ["train"]
+
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True
+
+  wandb_log: False
+  job_name: uni_med_finetune

@@ -1,0 +1,6 @@
+datasets:
+  invref_sa_med:
+    data_type: images
+    build_info:
+      image_dir: # path/dataset/SA-Med2D-20M/images_small_train
+      region_dir: # path/dataset/SA-Med2D-20M/regions_small_train

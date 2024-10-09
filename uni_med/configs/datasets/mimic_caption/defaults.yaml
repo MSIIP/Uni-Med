@@ -1,0 +1,12 @@
+datasets:
+  mimic_caption:
+    data_type: images
+
+    build_info:
+      # Be careful not to append minus sign (-) before split to avoid itemizing
+      annotations:
+        train:
+          storage:
+            - # path/dataset/MIMIC_caption/annotation_small.json
+      images:
+          storage: # path/dataset/MIMIC-CXR-JPG/2.0.0

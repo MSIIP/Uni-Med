@@ -1,0 +1,16 @@
+model:
+  arch: uni_med
+
+  # vit encoder
+  image_size: 224
+  drop_path_rate: 0
+  use_grad_checkpoint: False
+  vit_precision: "fp16"
+  freeze_vit: True
+  
+  # llm decoder
+  llm_model_name: "llama2"
+  llm_model_path: "" # path/Llama-2-7b-hf
+  lora_target_modules: ["all"]
+  lora_r: 8
+  lora_alpha: 16

@@ -1,0 +1,12 @@
+datasets:
+  path_vqa:
+    data_type: images
+
+    build_info:
+      # Be careful not to append minus sign (-) before split to avoid itemizing
+      annotations:
+        train:
+          storage:
+            - # path/dataset/Path-VQA/qas/train_vqa.pkl
+      images:
+          storage: # path/dataset/Path-VQA/images

@@ -1,0 +1,6 @@
+datasets:
+  slakevqa_en:
+    data_type: images
+    build_info:
+      data_dir: # path/dataset/Slake-VQA
+

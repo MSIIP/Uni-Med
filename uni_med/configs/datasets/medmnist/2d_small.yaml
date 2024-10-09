@@ -1,0 +1,7 @@
+datasets:
+  medmnist_2d_small:
+    data_type: images
+
+    build_info:
+      images:
+          storage: # path/dataset/MedMNIST

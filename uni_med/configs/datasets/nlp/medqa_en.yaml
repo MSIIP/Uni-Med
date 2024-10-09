@@ -1,0 +1,5 @@
+datasets:
+  medqa_en:
+    data_type: text
+    build_info:
+      ann_path: # path/dataset/MedQA

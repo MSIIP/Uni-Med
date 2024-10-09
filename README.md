@@ -44,15 +44,10 @@ Uni-Med achieves joint training on 6 six distinct medical tasks and 12 datasets,
 (1) train config file setup
 
 Set **resample_rate** and **resample_method** (projection/avgpool/maxpool) for visual feature aggregation.  
-
-Set **projector_type** (linear/mlp2x_gelu/moe_linear/moe_mlp), **num_expert**, **router_method** (router_task_token/router_token/router_task), **num_task_tokens**, **task_token_c**, and **router_type** (soft/hard/constant/sparse) for connector setting. 
-
-Set **llm_model_name** and **llm_model_path** for loading LLaMA model.  
-
-Set **sft_type** for finetuning (lora/full/none).  
-
+Set **projector_type** (linear/mlp2x_gelu/moe_linear/moe_mlp), **num_expert**, **router_method** (router_task_token/router_token/router_task), **num_task_tokens**, **task_token_c**, and **router_type** (soft/hard/constant/sparse) for connector setting.   
+Set **llm_model_name** and **llm_model_path** for loading LLaMA model.   
+Set **sft_type** for finetuning (lora/full/none).   
 Set **lora_target_modules** and **lora_r** and **lora_alpha** for LoRA setting.  
-
 Set **output_dir** for saving model. 
 
 in [train_configs/uni_med.yaml](./train_configs/uni_med.yaml) 
@@ -66,11 +61,43 @@ CUDA_VISIBLE_DEVICES=0 torchrun --master-port 295XX --nproc-per-node 1 train.py 
 
 
 ### Evaluation
-eval_caption.py
-eval_caption.py
 
+Set checkpoint, model parameters, save path and test set path in [eval_configs/uni_med_benchmark_evaluation.yaml](./eval_configs/uni_med_benchmark_evaluation.yaml) 
 
-CUDA_VISIBLE_DEVICES=7 python eval_caption.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset mimic_caption
+(1) Evalauting Visual Question Answering
+
+```bash
+python eval_vqa.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset slakevqa_en
+python eval_vqa.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset path_vqa
+```
+
+(2) Evalauting Referring Expression Comprehension
+
+```bash
+python eval_ref.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset ref_slake
+python eval_ref.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset ref_sa_med
+```
+
+(3) Evalauting Referring Expression Generation
+
+```bash
+python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset invref_slake
+python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset invref_sa_med
+```
+
+(4) Evalauting Report Generation
+
+```bash
+python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset mimic_caption
+python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medpix_single
+```
+
+(5) Evalauting Image Classification
+
+```bash
+python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medmnist_2d_derma
+python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medmnist_2d_organs
+```
 
 
 ## Acknowledgement

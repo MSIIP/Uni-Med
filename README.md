@@ -30,6 +30,8 @@ SA-Med2D-20M |  [Download](https://openxlab.org.cn/datasets/GMAI/SA-Med2D-20M) |
 
 You can download the processed data (such as Slake-VQA/Slake-REC/Slake-REG; SA-Med2D-REC/SA-Med2D-REG) on [Google Drive](https://), which can be directly used for training.
 
+Set dataset path in [uni_med/configs/datasets/](.uni_med/configs/datasets/) 
+
 **3. Pretrained Model Weights**
 
 EVA-CLIP ViT-G [Download](https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/eva_vit_g.pth)

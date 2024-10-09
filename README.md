@@ -11,6 +11,13 @@ Xun Zhu, Ying Hu, Fanbin Mo, Miao Li, Ji Wu <a href='https://arxiv.org/abs/2409.
 
 **1. Environment**
 
+Git clone our repository, creating a python environment and activate it:
+
+```bash
+conda env create -f environment.yml
+conda activate uni_med
+```
+
 **2. Dataset**
 
 To download the raw data，you can follow：
@@ -21,7 +28,7 @@ Slake |  [Download](https://www.med-vqa.com/slake)| Path-VQA  |  [Download](http
 MIMIC-CXR |  <a href="https://physionet.org/content/mimic-cxr-jpg/2.1.0">images</a> &nbsp;&nbsp;  <a href="https://huggingface.co/datasets/chaoyi-wu/RadFM_data_csv"> captions</a>| MPx |  <a href="https://huggingface.co/datasets/chaoyi-wu/MedPix-Images">images</a> &nbsp;&nbsp;  <a href="https://huggingface.co/datasets/chaoyi-wu/RadFM_data_csv"> captions</a>
 SA-Med2D-20M |  [Download](https://openxlab.org.cn/datasets/GMAI/SA-Med2D-20M) | MNIST |  [Download](https://medmnist.com )
 
-You can download the processed data (such as Slake-VQA/Slake-REC/Slake-REG; SA-Med2D-REC/SA-Med2D-REG) on [Google Drive](https://github.com/jind11/MedQA), which can be directly used for training.
+You can download the processed data (such as Slake-VQA/Slake-REC/Slake-REG; SA-Med2D-REC/SA-Med2D-REG) on [Google Drive](https://), which can be directly used for training.
 
 **3. Pretrained Model Weights**
 
@@ -32,7 +39,39 @@ Llama 2 Chat 7B [Download](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf/
 
 ### Training
 
+Uni-Med achieves joint training on 6 six distinct medical tasks and 12 datasets, requiring only one-stage training on a single A800 GPU and no task/dataset fine-tuning. 
+
+(1) train config file setup
+
+Set **resample_rate** and **resample_method** (projection/avgpool/maxpool) for visual feature aggregation.  
+
+Set **projector_type** (linear/mlp2x_gelu/moe_linear/moe_mlp), **num_expert**, **router_method** (router_task_token/router_token/router_task), **num_task_tokens**, **task_token_c**, and **router_type** (soft/hard/constant/sparse) for connector setting. 
+
+Set **llm_model_name** and **llm_model_path** for loading LLaMA model.  
+
+Set **sft_type** for finetuning (lora/full/none).  
+
+Set **lora_target_modules** and **lora_r** and **lora_alpha** for LoRA setting.  
+
+Set **output_dir** for saving model. 
+
+in [train_configs/uni_med.yaml](./train_configs/uni_med.yaml) 
+
+
+(2) Run
+
+```bash
+CUDA_VISIBLE_DEVICES=0 torchrun --master-port 295XX --nproc-per-node 1 train.py --cfg-path train_configs/uni_med.yaml
+```
+
+
 ### Evaluation
+eval_caption.py
+eval_caption.py
+
+
+CUDA_VISIBLE_DEVICES=7 python eval_caption.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset mimic_caption
+
 
 ## Acknowledgement
 + [MiniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) The standard model architecture of Uni-Med follows MiniGPT-v2. Don't forget to check this great open-source work if you don't know it before!

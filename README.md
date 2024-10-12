@@ -20,6 +20,8 @@ conda env create -f environment.yml
 conda activate uni_med
 ```
 
+**Note**: If you need to perform an evaluation, please install pycocoevalcap from [here](https://github.com/sks3i/pycocoevalcap).
+
 **2. Dataset**
 
 To download the raw data，you can follow：

@@ -30,9 +30,9 @@ Dataset | Download path| Dataset | Download path
 MedQA |  [Download](https://github.com/jind11/MedQA) | PubMedQA | [Download](https://github.com/pubmedqa/pubmedqa)
 Slake |  [Download](https://www.med-vqa.com/slake)| Path-VQA  |  [Download](https://github.com/UCSD-AI4H/PathVQA)
 MIMIC-CXR |  <a href="https://physionet.org/content/mimic-cxr-jpg/2.1.0">images</a> &nbsp;&nbsp;  <a href="https://huggingface.co/datasets/chaoyi-wu/RadFM_data_csv"> captions</a>| MPx |  <a href="https://huggingface.co/datasets/chaoyi-wu/MedPix-Images">images</a> &nbsp;&nbsp;  <a href="https://huggingface.co/datasets/chaoyi-wu/RadFM_data_csv"> captions</a>
-SA-Med2D-20M |  [Download](https://openxlab.org.cn/datasets/GMAI/SA-Med2D-20M) | MNIST |  [Download](https://figshare.com/articles/dataset/Uni-Med/27265386?file=49887585)
+SA-Med2D-20M |  [Download](https://openxlab.org.cn/datasets/GMAI/SA-Med2D-20M) | MNIST |  [Download](https://medmnist.com)
 
-You can download the processed data (such as Slake-VQA/Slake-REC/Slake-REG; SA-Med2D-REC/SA-Med2D-REG) on [figshare](https://), which can be directly used for training.
+You can download the processed data (such as Slake-VQA/Slake-REC/Slake-REG; SA-Med2D-REC/SA-Med2D-REG) on [figshare]([https://](https://figshare.com/articles/dataset/Uni-Med/27265386?file=49887585)), which can be directly used for training.
 
 Set dataset path in [uni_med/configs/datasets/](./uni_med/configs/datasets/) 
 

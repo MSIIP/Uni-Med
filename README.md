@@ -2,7 +2,7 @@
 
 <font size='5'>**Uni-Med: A Unified Medical Generalist Foundation Model For Multi-Task Learning Via Connector-MoE**</font>
 
-Xun Zhu, Ying Hu, Fanbin Mo, Miao Li, Ji Wu <a href='https://arxiv.org/abs/2409.17508'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a> 
+Xun Zhu, Ying Hu, Fanbin Mo, Miao Li, Ji Wu <a href='https://arxiv.org/abs/2409.17508'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a> [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftsinghua-msiip%2FUni-Med&count_bg=%2379C83D&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ![Logo](./images/architecture.png)
 

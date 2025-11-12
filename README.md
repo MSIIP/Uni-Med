@@ -94,15 +94,15 @@ python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yam
 (4) Evalauting Report Generation
 
 ```bash
-python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset mimic_caption
-python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medpix_single
+python eval_caption.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset mimic_caption
+python eval_caption.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medpix_single
 ```
 
 (5) Evalauting Image Classification
 
 ```bash
-python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medmnist_2d_derma
-python eval_identify.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medmnist_2d_organs
+python eval_cls.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medmnist_2d_derma
+python eval_cls.py --cfg-path eval_configs/uni_med_benchmark_evaluation.yaml --dataset medmnist_2d_organs
 ```
 
 
